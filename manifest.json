@@ -5,7 +5,8 @@
     "description": "Calculates the `sizes` for images on your page",
     "permissions": [
         "tabs",
-        "activeTab"
+        "activeTab",
+        "scripting"
     ],
     "background": {
         "service_worker": "background.js"
@@ -21,5 +22,33 @@
         "16": "icons/icon16.png",
         "48": "icons/icon48.png",
         "128": "icons/icon128.png"
+    },
+    "content_security_policy": {
+        "sandbox": "sandbox allow-scripts; script-src 'self' https://example.com"
+    },
+    "sandbox": {
+        "pages": [
+            "page1.html",
+            "directory/page2.html"
+        ]
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "contentScript.js"
+            ]
+        },
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "all_frames": true,
+            "js": [
+                "injectedScript.js"
+            ]
     }
+    ]
 }
